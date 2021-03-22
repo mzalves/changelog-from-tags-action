@@ -15,11 +15,9 @@ inputs:
   output-file:
     description: 'Output file. (default: CHANGELOG.md)'
     required: false
-    default: 'CHANGELOG.md'
   config-file:
     description: 'Path to the configuration file (default: changelog.yml)'
     required: false
-    default: 'changelog.yml'
   github-token:
     description: 'To make more than 50 requests per hour your GitHub token is required. You can generate it at: https://github.com/settings/tokens/new<Paste>'
     required: false
@@ -38,12 +36,6 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
-    OUTPUT-FILE: ${{ inputs.output-file }}
-    CONFIG-FILE: ${{ inputs.config-file }}
-    GITHUB-TOKEN: ${{ inputs.github-token }}
-    GITHUB-SITE: ${{ inputs.github-site }}
-    GITHUB-API: ${{ inputs.github-api }}
   args:
     - ${{ inputs.owner }}
     - ${{ inputs.repo }}

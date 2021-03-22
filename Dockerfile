@@ -4,11 +4,11 @@ FROM python:alpine
 RUN pip install pyyaml requests
 COPY changelogger.py /changelogger.py
 
-ENV OUTPUT-FILE=CHANGELOG.md
-ENV CONFIG-FILE=changelog.yml
-ENV GITHUB-TOKEN=
-ENV GITHUB-SITE=
-ENV GITHUB-API=
+ENV OUTPUT-FILE CHANGELOG.md
+ENV CONFIG-FILE changelog.yml
+ENV GITHUB-TOKEN ""
+ENV GITHUB-SITE ""
+ENV GITHUB-API ""
 
 ENV SRC_PATH /usr/local/src/your-app
 RUN mkdir -p $SRC_PATH
