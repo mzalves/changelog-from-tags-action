@@ -38,13 +38,14 @@ inputs:
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.owner }}
-    - ${{ inputs.repo }}
+  env:
     - ${{ inputs.output-file }}
     - ${{ inputs.config-file }}
     - ${{ inputs.github-token }}
-    - ${{ inputs.previous-tag }}
-    - ${{ inputs.current-tag }}
     - ${{ inputs.github-site }}
     - ${{ inputs.github-api }}
+  args:
+    - ${{ inputs.owner }}
+    - ${{ inputs.repo }}
+    - ${{ inputs.previous-tag }}
+    - ${{ inputs.current-tag }}
