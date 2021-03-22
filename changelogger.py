@@ -66,6 +66,7 @@ def get_commit_for_tag(github_config, owner, repo, tag):
                 tag, tag_json['message']))
 
         # If we're given a tag object we have to look up the commit
+        tag_json = tag_json if len(tag_json) > 1 else tag_json[0]
         if tag_json['object']['type'] == 'tag':
             tag_url = tag_json['object']['url']
 
@@ -302,7 +303,6 @@ def generate_changelog(owner=None, repo=None, previous_tag=None, current_tag=Non
     return lines
 
 def main():
-
     parser = argparse.ArgumentParser(
         description="Generate a CHANGELOG between two git tags based on GitHub"
                     "Pull Request merge commit messages")
@@ -333,7 +333,6 @@ def main():
                         'your Github requests with')
 
     args = parser.parse_args()
-    print("owner "+args.owner + " " + args.repo)
     changelog = generate_changelog(**vars(args))
     print(changelog)
 
