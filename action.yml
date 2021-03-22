@@ -1,0 +1,50 @@
+name: 'Changelog Generator from tags'
+description: 'Creates or replace a changelog file in your repository'
+branding:
+  icon: book-open
+  color: green
+inputs:
+  owner:
+    description: 'Username of the owner of target GitHub repo (default: extracted from $GITHUB_REPOSITORY_OWNER)'
+    required: false
+    default: $GITHUB_REPOSITORY_OWNER
+  repo:
+    description: 'Name of project on GitHub (default: extracted from $GITHUB_REPOSITORY)'
+    required: false
+    default: $GITHUB_REPOSITORY
+  output-file:
+    description: 'Output file. (default: CHANGELOG.md)'
+    required: false
+    default: 'CHANGELOG.md'
+  config-file:
+    description: 'Path to the configuration file (default: changelog.yml)'
+    required: false
+    default: 'changelog.yml'
+  github-token:
+    description: 'To make more than 50 requests per hour your GitHub token is required. You can generate it at: https://github.com/settings/tokens/new<Paste>'
+    required: false
+  previous-tag:
+    description: 'Changelog will start after specified tag.'
+    required: true
+  current-tag:
+    description: 'Changelog will end before specified tag.'
+    required: true
+  github-site:
+    description: 'The Enterprise GitHub site where your project is hosted if using GitHub Enterprise.'
+    required: false
+  github-api:
+    description: 'The enterprise endpoint to use for your GitHub API if using GitHub Enterprise.'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.owner }}
+    - ${{ inputs.repo }}
+    - ${{ inputs.output-file }}
+    - ${{ inputs.config-file }}
+    - ${{ inputs.github-token }}
+    - ${{ inputs.previous-tag }}
+    - ${{ inputs.current-tag }}
+    - ${{ inputs.github-site }}
+    - ${{ inputs.github-api }}
