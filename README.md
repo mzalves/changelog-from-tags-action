@@ -166,9 +166,9 @@ jobs:
         id: generate-changelog
         uses: mzalves/changelog-from-tags-action@v1.0.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          sinceTag: ${{github.event.inputs.last}}
-          dueTag: ${{github.event.inputs.current}}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          previous-tag: ${{github.event.inputs.last}}
+          current-tag: ${{github.event.inputs.current}}
       - name: View Changelog
         run: cat CHANGELOG.md
 
