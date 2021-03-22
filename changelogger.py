@@ -284,7 +284,7 @@ def format_changes(github_config, owner, repo, prs, config_file):
 
     return md_content
 
-def generate_changelog(owner, repo, previous_tag=None, current_tag=None,
+def generate_changelog(owner=None, repo=None, previous_tag=None, current_tag=None,
                        config_file=None, output_file=None,
                        github_base_url=None,
                        github_api_url=None, github_token=None):
@@ -302,12 +302,13 @@ def generate_changelog(owner, repo, previous_tag=None, current_tag=None,
     return lines
 
 def main():
+
     parser = argparse.ArgumentParser(
         description="Generate a CHANGELOG between two git tags based on GitHub"
                     "Pull Request merge commit messages")
-    parser.add_argument('owner', metavar='OWNER',
+    parser.add_argument('--owner', default=os.environ.get('OWNER'),
                         help='owner of the repo on GitHub')
-    parser.add_argument('repo', metavar='REPO',
+    parser.add_argument('--repo', default=os.environ.get('REPO'),
                         help='name of the repo on GitHub')
     parser.add_argument('previous_tag', metavar='PREVIOUS', nargs='?',
                         help='previous release tag (defaults to last tag)')
@@ -328,11 +329,11 @@ def main():
                         'are using GitHub Enterprise. e.g. https://github.'
                         'my-company.com/api/v3')
     parser.add_argument('--github-token', type=str, action='store',
-                        default=None, help='GitHub oauth token to auth '
+                        default=os.environ.get('GITHUB-TOKEN'), help='GitHub oauth token to auth '
                         'your Github requests with')
 
     args = parser.parse_args()
-
+    print("owner "+args.owner + " " + args.repo)
     changelog = generate_changelog(**vars(args))
     print(changelog)
 
