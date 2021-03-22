@@ -22,4 +22,4 @@ RUN mkdir -p $SRC_PATH
 VOLUME [ "$SRC_PATH" ]
 WORKDIR $SRC_PATH
 
-ENTRYPOINT [ "python", "/changelogger.py --github-api ${INPUT_GITHUB-API} --github-site ${INPUT_GITHUB-SITE} --github-token ${INPUT_GITHUB-TOKEN} --output-file ${INPUT_OUTPUT-FILE} --config-file ${INPUT_CONFIG-FILE} ${INPUT_OWNER} ${INPUT_REPO} ${INPUT_PREVIOUS-TAG} ${INPUT_CURRENT-TAG}" ]
+ENTRYPOINT [ "python", "/changelogger.py", "--github-api ${INPUT_GITHUB-API} --github-site ${INPUT_GITHUB-SITE} --github-token ${INPUT_GITHUB-TOKEN}", "--output-file ${INPUT_OUTPUT-FILE} --config-file ${INPUT_CONFIG-FILE}", "${INPUT_OWNER} ${INPUT_REPO} ${INPUT_PREVIOUS-TAG} ${INPUT_CURRENT-TAG}" ]
