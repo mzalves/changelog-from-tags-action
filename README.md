@@ -165,8 +165,11 @@ jobs:
       - name: Create Changelog
         id: generate-changelog
         uses: mzalves/changelog-from-tags-action@v1.0.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+        env:
+          GITHUB-TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OWNER: RepoOwner
+          REPO: RepoName
+        with:          
           previous-tag: ${{github.event.inputs.last}}
           current-tag: ${{github.event.inputs.current}}
       - name: View Changelog
