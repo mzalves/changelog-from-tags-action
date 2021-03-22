@@ -39,11 +39,11 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   env:
-    - OUTPUT-FILE=${{ inputs.output-file }}
-    - CONFIG-FILE=${{ inputs.config-file }}
-    - GITHUB-TOKEN=${{ inputs.github-token }}
-    - GITHUB-SITE=${{ inputs.github-site }}
-    - GITHUB-API=${{ inputs.github-api }}
+    OUTPUT-FILE: ${{ inputs.output-file }}
+    CONFIG-FILE: ${{ inputs.config-file }}
+    GITHUB-TOKEN: ${{ inputs.github-token }}
+    GITHUB-SITE: ${{ inputs.github-site }}
+    GITHUB-API: ${{ inputs.github-api }}
   args:
     - ${{ inputs.owner }}
     - ${{ inputs.repo }}
