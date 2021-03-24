@@ -66,9 +66,14 @@ def get_commit_for_tag(github_config, owner, repo, tag):
                 tag, tag_json['message']))
 
         # If we're given a tag object we have to look up the commit
-        tag_json = tag_json if len(tag_json) > 1 else tag_json[0]
-        if tag_json['object']['type'] == 'tag':
-            tag_url = tag_json['object']['url']
+        #tag_json = tag_json if len(tag_json) > 1 else tag_json[0]
+        try:
+            if tag_json['object']['type'] == 'tag':
+                tag_url = tag_json['object']['url']
+        except:
+            if tag_json[0]['object']['type'] == 'tag':
+                tag_url = tag_json['object']['url']
+
 
     return tag_json['object']['sha']
 
