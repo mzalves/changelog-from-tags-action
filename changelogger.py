@@ -15,8 +15,6 @@ import requests
 
 import yaml
 
-PUBLIC_GITHUB_URL = 'https://github.com'
-PUBLIC_GITHUB_API_URL = 'https://api.github.com'
 GitHubConfig = namedtuple('GitHubConfig', ['base_url', 'api_url', 'headers'])
 
 Commit = namedtuple('Commit', ['sha', 'message', 'committer'])
@@ -306,8 +304,10 @@ def generate_changelog(owner=None, repo=None, previous_tag=None, current_tag=Non
     return lines
 
 def main():
-    CONFIG_FILE = r'./changelog.yml'
+    CONFIG_FILE = r'./changelog-config.yml'
     OUTPUT_FILE = r'./CHANGELOG.md'
+    PUBLIC_GITHUB_URL = 'https://github.com'
+    PUBLIC_GITHUB_API_URL = 'https://api.github.com'
 
     configFileFromEnv =os.environ.get('CONFIG-FILE')
     if configFileFromEnv:
@@ -322,7 +322,12 @@ def main():
         ownerReporepoFromEnv = githubRepoFromEnv.split('/')
         os.environ['OWNER'] = ownerReporepoFromEnv[0]
         os.environ['REPO'] = ownerReporepoFromEnv[1]
-
+    githubSiteFromEnv =os.environ.get('GITHUB-SITE')
+    if githubSiteFromEnv:
+        PUBLIC_GITHUB_URL = githubSiteFromEnv
+    githubApiUrlFromEnv =os.environ.get('GITHUB-API')
+    if githubApiUrlFromEnv:
+        PUBLIC_GITHUB_API_URL = githubApiUrlFromEnv
 
     parser = argparse.ArgumentParser(
         description="Generate a CHANGELOG between two git tags based on GitHub"
@@ -337,7 +342,7 @@ def main():
                         help='current release tag (defaults to HEAD)')
     parser.add_argument('--config-file', type=str, action='store',
                         default=CONFIG_FILE, help='Config file name '
-                        r'defaults to ./changelog.yml')
+                        r'defaults to ./changelog-config.yml')
     parser.add_argument('--output-file', type=str, action='store',
                         default=OUTPUT_FILE, help='Output file name '
                         r'defaults to ./CHANGELOG.md')

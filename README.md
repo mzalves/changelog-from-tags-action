@@ -3,33 +3,37 @@
 ## Available inputs
 
 ```yaml
-owner:
-  description: 'Username of the owner of target GitHub repo (default: extracted from $GITHUB_REPOSITORY)'
-  required: true
-repo:
-  description: 'Name of project on GitHub (default: extracted from $GITHUB_REPOSITORY)'
-  required: true
-output-file:
-  description: 'Output file path. (default: CHANGELOG.md)'
-  required: false
-  default: 'CHANGELOG.md'
-config-file:
-  description: 'Configuration file path (default: changelog.yml)'
-  required: false
-  default: changelog.yml
-github-token:
-  description: 'To make more than 50 requests per hour your GitHub token is required. You can generate it at: https://github.com/settings/tokens/new<Paste>'
-  required: false
 previous-tag:
   description: 'Changelog will start after specified tag.'
   required: false
 current-tag:
   description: 'Changelog will end before specified tag.'
   required: false
-github-site:
+```
+## Environment variables
+
+```yaml
+OWNER:
+  description: 'Username of the owner of target GitHub repo (default: extracted from $GITHUB_REPOSITORY)'
+  required: true
+REPO:
+  description: 'Name of project on GitHub (default: extracted from $GITHUB_REPOSITORY)'
+  required: true
+OUTPUT-FILE:
+  description: 'Output file path. (default: CHANGELOG.md)'
+  required: false
+  default: 'CHANGELOG.md'
+CONFIG-FILE:
+  description: 'Configuration file path (default: changelog-config.yml)'
+  required: false
+  default: changelog-config.yml
+GITHUB-TOKEN:
+  description: 'To make more than 50 requests per hour your GitHub token is required. You can generate it at: https://github.com/settings/tokens/new<Paste>'
+  required: false
+GITHUB-SITE:
   description: 'The Enterprise GitHub site where your project is hosted if using GitHub Enterprise.'
   required: false
-github-api:
+GITHUB-API:
   description: 'The enterprise endpoint to use for your GitHub API if using GitHub Enterprise.'
   required: false
 ```
@@ -167,8 +171,6 @@ jobs:
         uses: mzalves/changelog-from-tags-action@v1.0.0
         env:
           GITHUB-TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OWNER: RepoOwner
-          REPO: RepoName
         with:          
           previous-tag: ${{github.event.inputs.last}}
           current-tag: ${{github.event.inputs.current}}
