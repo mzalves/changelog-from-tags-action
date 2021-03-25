@@ -17,7 +17,6 @@ import yaml
 
 PUBLIC_GITHUB_URL = 'https://github.com'
 PUBLIC_GITHUB_API_URL = 'https://api.github.com'
-CONFIG_FILE = r'./changelog.yml'
 OUTPUT_FILE = r'./CHANGELOG.md'
 GitHubConfig = namedtuple('GitHubConfig', ['base_url', 'api_url', 'headers'])
 
@@ -308,6 +307,8 @@ def generate_changelog(owner=None, repo=None, previous_tag=None, current_tag=Non
     return lines
 
 def main():
+    CONFIG_FILE = r'./changelog.yml'
+
     configFileFromEnv =os.environ.get('CONFIG-FILE')
     if configFileFromEnv:
         CONFIG_FILE = configFileFromEnv
@@ -315,10 +316,13 @@ def main():
     if outputFileFromEnv:
         OUTPUT_FILE = outputFileFromEnv
     print("repo: "+ os.environ.get('GITHUB_REPOSITORY'))
-    print("owner: "+ os.environ.get('GITHUB_REPOSITORY_OWNER'))
-    # repoFromEnv = os.environ.get('GITHUB_REPOSITORY')
-    # if repoFromEnv:
-    #     reporepoFromEnv = repoFromEnv.split('/')
+    githubRepoFromEnv = os.environ.get('GITHUB_REPOSITORY')
+    ownerFromEnv = os.environ.get('OWNER')
+    repoFromEnv = os.environ.get('REPO')
+    if not ownerFromEnv and not repoFromEnv:
+        ownerReporepoFromEnv = githubRepoFromEnv.split('/')
+        os.environ['OWNER'] = ownerReporepoFromEnv[0]
+        os.environ['REPO'] = ownerReporepoFromEnv[1]
 
 
     parser = argparse.ArgumentParser(
