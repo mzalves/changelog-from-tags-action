@@ -308,6 +308,19 @@ def generate_changelog(owner=None, repo=None, previous_tag=None, current_tag=Non
     return lines
 
 def main():
+    configFileFromEnv =os.environ.get('CONFIG-FILE')
+    if configFileFromEnv:
+        CONFIG_FILE = configFileFromEnv
+    outputFileFromEnv =os.environ.get('OUTPUT-FILE')
+    if outputFileFromEnv:
+        OUTPUT_FILE = outputFileFromEnv
+    print("repo: "+ os.environ.get('GITHUB_REPOSITORY'))
+    print("owner: "+ os.environ.get('GITHUB_REPOSITORY_OWNER'))
+    # repoFromEnv = os.environ.get('GITHUB_REPOSITORY')
+    # if repoFromEnv:
+    #     reporepoFromEnv = repoFromEnv.split('/')
+
+
     parser = argparse.ArgumentParser(
         description="Generate a CHANGELOG between two git tags based on GitHub"
                     "Pull Request merge commit messages")
