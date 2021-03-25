@@ -299,7 +299,7 @@ def generate_changelog(owner=None, repo=None, previous_tag=None, current_tag=Non
     prs = fetch_changes(github_config, owner, repo, previous_tag, current_tag)
     lines = format_changes(github_config, owner, repo, prs, config_file)
 
-    f = open(OUTPUT_FILE, "w", encoding="utf-8")
+    f = open(output_file, "w", encoding="utf-8")
     f.write(lines)
     f.close()
 
