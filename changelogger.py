@@ -17,7 +17,6 @@ import yaml
 
 PUBLIC_GITHUB_URL = 'https://github.com'
 PUBLIC_GITHUB_API_URL = 'https://api.github.com'
-OUTPUT_FILE = r'./CHANGELOG.md'
 GitHubConfig = namedtuple('GitHubConfig', ['base_url', 'api_url', 'headers'])
 
 Commit = namedtuple('Commit', ['sha', 'message', 'committer'])
@@ -308,6 +307,7 @@ def generate_changelog(owner=None, repo=None, previous_tag=None, current_tag=Non
 
 def main():
     CONFIG_FILE = r'./changelog.yml'
+    OUTPUT_FILE = r'./CHANGELOG.md'
 
     configFileFromEnv =os.environ.get('CONFIG-FILE')
     if configFileFromEnv:
