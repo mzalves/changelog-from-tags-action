@@ -315,7 +315,6 @@ def main():
     outputFileFromEnv =os.environ.get('OUTPUT-FILE')
     if outputFileFromEnv:
         OUTPUT_FILE = outputFileFromEnv
-    print("repo: "+ os.environ.get('GITHUB_REPOSITORY'))
     githubRepoFromEnv = os.environ.get('GITHUB_REPOSITORY')
     ownerFromEnv = os.environ.get('OWNER')
     repoFromEnv = os.environ.get('REPO')
